@@ -53,25 +53,14 @@ contract TokenTemplateTest is Test {
         console.log("Supply:%d  | CAP %d", token.totalSupply(), token.cap());
 
         //error ERC20ExceededCap(uint256 increasedSupply, uint256 cap);
-        vm.expectRevert(
-            abi.encodeWithSelector(
-                ERC20Capped.ERC20ExceededCap.selector,
-                maxSupply + bobAmount,
-                maxSupply
-            )
-        );
+        vm.expectRevert(abi.encodeWithSelector(ERC20Capped.ERC20ExceededCap.selector, maxSupply + bobAmount, maxSupply));
         vm.startPrank(alice);
         token.mint(bob, bobAmount);
     }
 
-
     function invariant_supply() external {
-
-
-  
-        assertGe(maxSupply, token.totalSupply());        
+        assertGe(maxSupply, token.totalSupply());
     }
-
 
     /*function testFuzzMint(address to , uint256 amount) external {
 

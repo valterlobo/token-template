@@ -5,13 +5,8 @@ import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Capped.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract TokenTemplate is ERC20Capped, Ownable  {
-    constructor(
-        string memory nm,
-        string memory sbl,
-        uint256 totalSupply,
-        address initialOwner
-    )
+contract TokenTemplate is ERC20Capped, Ownable {
+    constructor(string memory nm, string memory sbl, uint256 totalSupply, address initialOwner)
         ERC20(nm, sbl)
         ERC20Capped(totalSupply)
         Ownable(initialOwner)
@@ -21,6 +16,4 @@ contract TokenTemplate is ERC20Capped, Ownable  {
     function mint(address to, uint256 amount) public onlyOwner {
         _mint(to, amount);
     }
-
- 
 }
