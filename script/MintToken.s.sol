@@ -4,19 +4,17 @@ pragma solidity ^0.8.20;
 import {Script, console} from "forge-std/Script.sol";
 import "../src/TokenTemplate.sol";
 
-contract TokenDeployScript is Script {
+contract TokenMintScript is Script {
     function setUp() public {}
 
     function run() public {
         uint256 deployerPrivateKey = vm.envUint("PRIVATE_KEY");
         vm.startBroadcast(deployerPrivateKey);
-
-        uint256 maxSupply = 1000000e18;
-        address owner = 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266;
-        // 0x3F9E5E96b26156541D369e57337881f6BA9Bc6A9;
-        string memory nm = "HappyToken";
-        string memory sbl = "Happy";
-        TokenTemplate token = new TokenTemplate(nm, sbl, maxSupply, owner);
+        uint256 totalMint = 100e18;
+        address to = vm.envAddress("TO_MINT");
+        address tkContract = vm.envAddress("TK_CONTRACT");
+        TokenTemplate token = TokenTemplate(tkContract);
+        token.mint(to, totalMint);
 
         vm.stopBroadcast();
     }
